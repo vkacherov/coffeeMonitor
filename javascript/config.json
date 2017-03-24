@@ -1,0 +1,8 @@
+{
+ "kit": "grove",
+ "VIBRATION_THRESHOLD": 20,
+ "NOISE_THRESHOLD": 150,
+ "LOG_EVENT_URI": "http://coffeemonitor.azurewebsites.net/logger/coffeeMonitor",
+ "INCREMENT_URI": "http://coffeemonitor.azurewebsites.net/counter/coffeeMonitor/inc",
+ "AUTH_TOKEN": "jyM4Njtx(s"
+}
