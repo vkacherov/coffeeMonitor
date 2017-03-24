@@ -1,0 +1,82 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Redis_coffeeMonitor_name": {
+            "defaultValue": "coffeeMonitor",
+            "type": "String"
+        },
+        "sites_coffeeMonitor_name": {
+            "defaultValue": "coffeeMonitor",
+            "type": "String"
+        },
+        "sites_coffeeMonitor_serverFarmId": {
+            "defaultValue": "/subscriptions/389d752f-7727-4f8f-ba10-e89be3673e73/resourceGroups/Default-Web-EastUS/providers/Microsoft.Web/serverfarms/Default1",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/389d752f-7727-4f8f-ba10-e89be3673e73/resourceGroups/coffeeMonitor/providers/Microsoft.Cache/Redis/coffeeMonitor'.",
+            "type": "Microsoft.Cache/Redis",
+            "name": "[parameters('Redis_coffeeMonitor_name')]",
+            "apiVersion": "2016-04-01",
+            "location": "East US",
+            "tags": {},
+            "properties": {
+                "redisVersion": "3.2",
+                "sku": {
+                    "name": "Standard",
+                    "family": "C",
+                    "capacity": 1
+                },
+                "enableNonSslPort": true,
+                "redisConfiguration": {
+                    "maxclients": "1000",
+                    "maxmemory-reserved": "50",
+                    "maxmemory-policy": "volatile-lru",
+                    "maxmemory-delta": "50"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/389d752f-7727-4f8f-ba10-e89be3673e73/resourceGroups/coffeeMonitor/providers/Microsoft.Web/sites/coffeeMonitor'.",
+            "type": "Microsoft.Web/sites",
+            "kind": "app",
+            "name": "[parameters('sites_coffeeMonitor_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "East US",
+            "tags": {
+                "hidden-related:/subscriptions/389d752f-7727-4f8f-ba10-e89be3673e73/resourcegroups/Default-Web-EastUS/providers/Microsoft.Web/serverfarms/Default1": "empty"
+            },
+            "properties": {
+                "name": "[parameters('sites_coffeeMonitor_name')]",
+                "hostNames": [
+                    "coffeemonitor.azurewebsites.net"
+                ],
+                "enabledHostNames": [
+                    "coffeemonitor.azurewebsites.net",
+                    "coffeemonitor.scm.azurewebsites.net"
+                ],
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_coffeeMonitor_name'),'coffeemonitor.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[concat(parameters('sites_coffeeMonitor_name'),'coffeemonitor.scm.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "serverFarmId": "[parameters('sites_coffeeMonitor_serverFarmId')]"
+            },
+            "dependsOn": []
+        }
+    ]
+}
